@@ -19,55 +19,115 @@ import javax.imageio.ImageIO;
 public class TileManager {
 
     GamePanel gp;
-    Tile[] tile;
-    int MapTileNum[][];
+    public Tile[] tile;
+    public int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-
         tile = new Tile[10];//banyak sprite
-        MapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
-    }
 
-    public void loadmap() {
-
-        try {
-            InputStream is = getClass().getResourceAsStream("/res/tomb_sprite/tomb_wall.png");
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            int col = 0;
-            int row = 0;
-            while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
-                String line = br.readLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        loadmap();
     }
 
     public void getTileImage() {
         try {
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tomb_sprite/tomb_wall.png"));// isi anchor sprite dalam array
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/grass.png"));// isi anchor sprite dalam array
+            
+            
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tomb_sprite/tomb_ghost_left.png"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tomb_sprite/tomb_wall.png"));// isi anchor sprite dalam array
+            tile[1].collision = true;
+            
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tomb_sprite/tomb_spike.png"));
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tomb_sprite/tomb_spike.png"));// isi anchor sprite dalam array
+            tile[2].collision = true;
+
+            
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tomb_sprite/tomb_cannon.png"));
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/earth.png"));// isi anchor sprite dalam array
+            
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/tree.png"));// isi anchor sprite dalam array
+            tile[4].collision = true;
+
+            
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/sand.png"));// isi anchor sprite dalam array
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void draw(Graphics2D g2) {
-        g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null);//lokasi setiap sprite
-        g2.drawImage(tile[1].image, 96, 0, gp.tileSize, gp.tileSize, null);
-        g2.drawImage(tile[2].image, 192, 0, gp.tileSize, gp.tileSize, null);
-        g2.drawImage(tile[3].image, 288, 0, gp.tileSize, gp.tileSize, null);
+    public void loadmap() {
+        try {
+            InputStream is = getClass().getResourceAsStream("/Maps/world01.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-//        g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null);
-        //rey jagan lupa setiap kotak/1 pixel di map game nya tiu 1 pixel =48 x dan y
+            int col = 0;
+            int row = 0;
+
+            while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
+                String line = br.readLine();
+
+                while (col < gp.maxWorldCol) {
+
+                    String numbers[] = line.split(" ");
+
+                    int num = Integer.parseInt(numbers[col]);
+
+                    mapTileNum[col][row] = num;
+                    col++;
+
+                }
+                if (col == gp.maxWorldCol) {
+                    col = 0;
+                    row++;
+
+                }
+            }
+            br.close();
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void draw(Graphics2D g2) {
+        getTileImage();
+        int worldCol = 0;
+        int worldRow = 0;
+        
+
+        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+
+            int tileNum = mapTileNum[worldCol][worldRow];
+            
+            int worldX = worldCol * gp.tileSize;
+            int worldY = worldRow * gp.tileSize;
+            int screenX = worldX - gp.user.worldX + gp.user.screenX;
+            int screenY = worldY - gp.user.worldY + gp.user.screenY;
+            
+            if(worldX + gp.tileSize>gp.user.worldX - gp.user.screenX &&
+               worldX - gp.tileSize<gp.user.worldX + gp.user.screenX &&
+               worldY + gp.tileSize>gp.user.worldY - gp.user.screenY &&
+               worldY - gp.tileSize<gp.user.worldY + gp.user.screenY ){
+               g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            }
+            
+            worldCol++;
+            
+
+            if (worldCol == gp.maxWorldCol) {
+                worldCol = 0;
+               
+                worldRow++;
+              
+            }
+        }
+
+        //rey jangan lupa setiap kotak/1 pixel di map game nya itu 1 pixel =48 x dan y
     }
 }

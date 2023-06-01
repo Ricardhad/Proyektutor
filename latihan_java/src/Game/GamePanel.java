@@ -24,18 +24,26 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale;//harus di ubah public supaya bisa mengakses packages Sprite
-    public final int maxScreenCol = 16; // ratio 8
-    public final int maxScreenRow = 12; // ratio 4
+    public final int maxScreenCol = 32; // ratio 8
+    public final int maxScreenRow = 16; // ratio 4
     public final int screenWidth = tileSize * maxScreenCol;// rumus width 48*32=1536
     public final int screenHeight = tileSize * maxScreenRow;//rumus height 48*16=768
-
+    
+    //World map
+    public final int maxWorldCol=50;
+    public final int maxWorldRow=50;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
+    
+    
     //fps
     int FPS = 60;
 
     TileManager tilem=new TileManager(this);
     KeyHandler keyh = new KeyHandler();
     Thread gameThread;
-    Player user = new Player(this,keyh);
+    public CollisionChecker cChecker = new CollisionChecker(this);
+    public Player user = new Player(this,keyh);
 
     int playerX = 100;
     int playerY = 100;
@@ -96,6 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         
         tilem.draw(g2);
+        
         user.draw(g2);
         g2.dispose();
     }

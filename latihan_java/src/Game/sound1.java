@@ -11,6 +11,9 @@ import javax.sound.sampled.*;
  *
  * @author Reynaldy
  */
+
+
+//====================================================INI YANG HARI SENIN====================================================================
 public class sound1 {
 
     String filepath;

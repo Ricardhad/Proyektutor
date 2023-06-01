@@ -11,6 +11,6 @@ import java.awt.image.BufferedImage;
  * @author Reynaldy
  */
 public class Tile {
-public BufferedImage image;
+    public BufferedImage image;
     public boolean collision;
 }

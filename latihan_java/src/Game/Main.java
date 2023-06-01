@@ -23,7 +23,7 @@ public class Main {
          JFrame jf = new JFrame();
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setResizable(true);
-        jf.setTitle("Tomb Escape");
+        jf.setTitle("Tomb Escape test");
         
         GamePanel gamepanel= new GamePanel();
         jf.add(gamepanel);
