@@ -6,6 +6,7 @@ package Sprite;
 
 import Game.GamePanel;// Game itu berasal dari pakage Game nya
 import Game.KeyHandler;
+import Game.utilitytool;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -20,99 +21,134 @@ import javax.imageio.ImageIO;
  */
 public class Player extends Entity {
 
-    GamePanel gp;
     KeyHandler keyh;
 
     public final int screenX;
     public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyh) {
-        this.gp = gp;
+        super(gp);
+
         this.keyh = keyh;
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
-        solidArea = new Rectangle(8, 16, 32, 32);
+        solidArea = new Rectangle(8, 8, 25, 25);//8,16,32,32
 
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * 23;//lokasi players
-        worldY = gp.tileSize * 21;
-        speed = 20;
+        worldX = gp.tileSize * 5;//lokasi players
+        worldY = gp.tileSize * 27;
+        speed = 10;//5
         direction = "down";
     }
 
     public void getPlayerImage() {
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
-//            idle1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
+            up1 = setup("tomb_char_move_up0");
+            up2 = setup("tomb_char_move_up1");
+            down1 = setup("tomb_char_move_down0");
+            down2 = setup("tomb_char_move_down1");
+            left1 = setup("tomb_char_move_left0");
+            left2 = setup("tomb_char_move_left1");
+            right1 = setup("tomb_char_move_right0");
+            right2 = setup("tomb_char_move_right1");
+            idleup1 = setup("tomb_char_up0");
+            idleup2 = setup("tomb_char_up1");
+            idleleft1 = setup("tomb_char_left0");
+            idleleft2 = setup("tomb_char_left1");
+            idleright1 = setup("tomb_char_right0");
+            idleright2 = setup("tomb_char_right1");
+            idledown1 = setup("tomb_char_down0");
+            idledown2 = setup("tomb_char_down1");
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
-    boolean isMoving = false;
+    public BufferedImage setup(String imagename) {
+        utilitytool uTool = new utilitytool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/" + imagename + ".png"));
+            image = uTool.scaledimage(image, gp.tileSize, gp.tileSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
 
+        boolean isMoving = false;
     public void update() {
+
         if (keyh.up == true || keyh.down == true || keyh.left == true || keyh.right == true) {//ini guna nya supaya sprite nya tidak ganti setiap detik,dan figanti ketika menekan wasd nya
-//            if (!isMoving) { 
-            if (keyh.up) {
-                direction = "up";
-            } else if (keyh.down) {
-                direction = "down";
-            } else if (keyh.left) {
-                direction = "left";
-            } else if (keyh.right) {
-                direction = "right";
-            }
+            if (!isMoving) { // Only change direction if not already moving
             isMoving = true;
-//            }
-
-            // cek collision
-            collisionOn = false;
-            gp.cChecker.checkTile(this);
-            isMoving = false;
-            if (collisionOn == false) {
-
-                switch (direction) {
-                    case "up":
-                        worldY -= speed;
-                        break;
-                    case "down":
-                        worldY += speed;
-                        break;
-                    case "left":
-                        worldX -= speed;
-                        break;
-                    case "right":
-                        worldX += speed;
-                        break;
+                if (keyh.up) {
+                    direction = "up";
+                } else if (keyh.down) {
+                    direction = "down";
+                } else if (keyh.left) {
+                    direction = "left";
+                } else if (keyh.right) {
+                    direction = "right";
                 }
+            }
+        } else {
+            switch (direction) {
+                case "up":
+                    direction="idleup";
+                    break;
+                case "down":
+                    direction="idledown";
+                    break;
+                case "left":
+                    direction="idleleft";
+                    break;
+                case "right":
+                    direction="idleright";
+                    break;
+            }
+            isMoving = false;
+        }
 
-            } else {
-//            speed=0;
-//                keyh.down = false;
-//                keyh.up = false;
-//                keyh.left = false;
-//                keyh.right = false;
-                isMoving = false;
+        // cek collision
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+
+        if (collisionOn == false) {
+
+            switch (direction) {
+                case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left":
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX += speed;
+                    break;
             }
 
+        } else {
+                keyh.down = false;
+            keyh.up = false;
+            keyh.left = false;
+            keyh.right = false;
+            isMoving = false;
+        
         }
         spriteCounter++;// ganti frame sprite nya
-        if (spriteCounter > 10) {// per detik
+        if (spriteCounter > 20) {// per detik
             if (spriteNum == 1) {
                 spriteNum = 2;
             } else if (spriteNum == 2) {
@@ -120,48 +156,47 @@ public class Player extends Entity {
             }
             spriteCounter = 0;
         }
+
     }
 
     public void draw(Graphics2D g2) {
 
-        // g2.setColor(Color.pink);
-        // g2.fillRect(x, y, gp.tileSize, gp.tileSize); 
+        //g2.setColor(Color.pink);
+        //g2.fillRect(screenX, screenY, gp.tileSize, gp.tileSize); 
         // ini yang kotak hijau
         BufferedImage image = null;
         if (keyh.up == false && keyh.down == false && keyh.left == false && keyh.right == false) {
-             switch (direction) {
-                case "up":
+            switch (direction) {
+                case "idleup":
                     if (spriteNum == 1) {
-                        image = down1;
-
+                        image = idleleft1;
                     }
                     if (spriteNum == 2) {
-                        image = down2;
+                        image = idleleft2;
                     }
                     break;
-                case "down":
+                case "idledown":
                     if (spriteNum == 1) {
-                        image = up1;
+                        image = idleright1;
                     }
                     if (spriteNum == 2) {
-                        image = up2;
+                        image = idleright2;
                     }
                     break;
-                case "left":
+                case "idleleft":
                     if (spriteNum == 1) {
-                        image = right1;
-
+                        image = idledown1;
                     }
                     if (spriteNum == 2) {
-                        image = right2;
+                        image = idledown2;
                     }
                     break;
-                case "right":
+                case "idleright":
                     if (spriteNum == 1) {
-                        image = left1;
+                        image = idleup1;
                     }
                     if (spriteNum == 2) {
-                        image = left2;
+                        image = idleup2;
                     }
                     break;
             }
@@ -203,6 +238,7 @@ public class Player extends Entity {
                     break;
             }
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+
+        g2.drawImage(image, screenX, screenY, null);
     }
 }
