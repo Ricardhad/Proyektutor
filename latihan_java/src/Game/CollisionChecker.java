@@ -4,7 +4,7 @@
  */
 package Game;
 
-import Creature.Entity;
+import Sprite.Entity;
 
 /**
  *
@@ -68,6 +68,4 @@ public class CollisionChecker {
         
 
     }
-    
-    
 }
