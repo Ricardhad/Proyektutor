@@ -32,6 +32,7 @@ public abstract class Entity {
     
     public Entity(GamePanel gp){
         this.gp = gp;
+        this.name = "anaother";
     }
     
     public abstract void draw(Graphics2D g2);

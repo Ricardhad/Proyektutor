@@ -40,6 +40,10 @@ public class CollisionChecker {
                 tileNum2 = gp.tilem.mapTileNum[gp.currentmap][entitiyRightCol][entitiyTopRow];
                 if (gp.tilem.tile[tileNum1].collision == true || gp.tilem.tile[tileNum2].collision == true) {
                     et.collisionOn = true;
+                    if(gp.tilem.tile[tileNum1].trap == true && et.name.equals("player")){
+                         et.worldX = gp.tileSize * 5;//lokasi players
+                         et.worldY = gp.tileSize * 27;
+                    }
                 }
 
                 break;
@@ -49,6 +53,10 @@ public class CollisionChecker {
                 tileNum2 = gp.tilem.mapTileNum[gp.currentmap][entitiyRightCol][entitiyBottomRow];
                 if (gp.tilem.tile[tileNum1].collision == true || gp.tilem.tile[tileNum2].collision == true) {
                     et.collisionOn = true;
+                     if(gp.tilem.tile[tileNum1].trap == true && et.name.equals("player")){
+                         et.worldX = gp.tileSize * 5;//lokasi players
+                         et.worldY = gp.tileSize * 27;
+                    }
                 }
                 break;
             case "left":
@@ -57,6 +65,10 @@ public class CollisionChecker {
                 tileNum2 = gp.tilem.mapTileNum[gp.currentmap][entitiyLeftCol][entitiyBottomRow];
                 if (gp.tilem.tile[tileNum1].collision == true || gp.tilem.tile[tileNum2].collision == true) {
                     et.collisionOn = true;
+                     if(gp.tilem.tile[tileNum1].trap == true && et.name.equals("player")){
+                         et.worldX = gp.tileSize * 5;//lokasi players
+                         et.worldY = gp.tileSize * 27;
+                    }
                 }
                 break;
             case "right":
@@ -65,6 +77,10 @@ public class CollisionChecker {
                 tileNum2 = gp.tilem.mapTileNum[gp.currentmap][entitiyRightCol][entitiyBottomRow];
                 if (gp.tilem.tile[tileNum1].collision == true || gp.tilem.tile[tileNum2].collision == true) {
                     et.collisionOn = true;
+                     if(gp.tilem.tile[tileNum1].trap == true && et.name.equals("player")){
+                         et.worldX = gp.tileSize * 5;//lokasi players
+                         et.worldY = gp.tileSize * 27;
+                    }
                 }
                 break;
         }
@@ -73,19 +89,19 @@ public class CollisionChecker {
 
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
-        for (int i = 0; i < gp.obj.length; i++) {
-            if (gp.obj[i] != null) {
+        for (int i = 0; i < gp.obj.size(); i++) {
+            if (gp.obj.get(i) != null) {
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
-                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
-                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+                gp.obj.get(i).solidArea.x = gp.obj.get(i).worldX + gp.obj.get(i).solidArea.x;
+                gp.obj.get(i).solidArea.y = gp.obj.get(i).worldY + gp.obj.get(i).solidArea.y;
 
                 switch (entity.direction) {
                     case "up":
                         entity.solidArea.y -= entity.speed;
-                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
-                            if (gp.obj[i].collision == true) {
+                        if (entity.solidArea.intersects(gp.obj.get(i).solidArea)) {
+                            if (gp.obj.get(i).collision == true) {
                                 entity.collisionOn = true;
                             }
                             if (player == true) {
@@ -95,8 +111,8 @@ public class CollisionChecker {
                         break;
                     case "down":
                         entity.solidArea.y += entity.speed;
-                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
-                            if (gp.obj[i].collision == true) {
+                        if (entity.solidArea.intersects(gp.obj.get(i).solidArea)) {
+                            if (gp.obj.get(i).collision == true) {
                                 entity.collisionOn = true;
                             }
                             if (player == true) {
@@ -106,9 +122,9 @@ public class CollisionChecker {
                         break;
                     case "left":
                         entity.solidArea.x -= entity.speed;
-                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                        if (entity.solidArea.intersects(gp.obj.get(i).solidArea)) {
 
-                            if (gp.obj[i].collision == true) {
+                            if (gp.obj.get(i).collision == true) {
                                 entity.collisionOn = true;
                             }
                             if (player == true) {
@@ -118,8 +134,8 @@ public class CollisionChecker {
                         break;
                     case "right":
                         entity.solidArea.x += entity.speed;
-                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
-                            if (gp.obj[i].collision == true) {
+                        if (entity.solidArea.intersects(gp.obj.get(i).solidArea)) {
+                            if (gp.obj.get(i).collision == true) {
                                 entity.collisionOn = true;
                             }
                             if (player == true) {
@@ -132,8 +148,147 @@ public class CollisionChecker {
                 }
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
-                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
-                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+                gp.obj.get(i).solidArea.x = gp.obj.get(i).solidAreaDefaultX;
+                gp.obj.get(i).solidArea.y = gp.obj.get(i).solidAreaDefaultY;
+
+            }
+
+        }
+        return index;
+    }
+    
+    
+      public int checkenemyectEne(Entity entity, boolean player) {
+        int index = 999;
+                        System.out.println("Masuk mas");
+
+        for (int i = 0; i < gp.enemy.length; i++) {
+            if (gp.enemy[i] != null) {
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
+                gp.enemy[i].solidArea.x = gp.enemy[i].worldX + gp.enemy[i].solidArea.x;
+                gp.enemy[i].solidArea.y = gp.enemy[i].worldY + gp.enemy[i].solidArea.y;
+                System.out.println("Masuk mas");
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        if (entity.solidArea.intersects(gp.enemy[i].solidArea)) {
+                          //  if (gp.enemy[i].collisionOn == true) {
+                                entity.collisionOn = true;
+                           // }
+                            if (player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        if (entity.solidArea.intersects(gp.enemy[i].solidArea)) {
+                           // if (gp.enemy[i].collisionOn == true) {
+                                entity.collisionOn = true;
+                            //}
+                            if (player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        if (entity.solidArea.intersects(gp.enemy[i].solidArea)) {
+
+                           // if (gp.enemy[i].collisionOn == true) {
+                                entity.collisionOn = true;
+                           // }
+                            if (player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x += entity.speed;
+                        if (entity.solidArea.intersects(gp.enemy[i].solidArea)) {
+                          //  if (gp.enemy[i].collisionOn == true) {
+                               entity.collisionOn = true;
+                           // }
+                            if (player == true) {
+                                index = i;
+                            }
+                            break;
+
+                        }
+
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                gp.enemy[i].solidArea.x = gp.enemy[i].solidAreaDefaultX;
+                gp.enemy[i].solidArea.y = gp.enemy[i].solidAreaDefaultY;
+
+            }
+
+        }
+        
+        for (int i = 0; i < gp.ammo.length; i++) {
+            if (gp.ammo[i] != null) {
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
+                gp.ammo[i].solidArea.x = gp.ammo[i].worldX + gp.ammo[i].solidArea.x;
+                gp.ammo[i].solidArea.y = gp.ammo[i].worldY + gp.ammo[i].solidArea.y;
+                System.out.println("Masuk mas");
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        if (entity.solidArea.intersects(gp.ammo[i].solidArea)) {
+                          //  if (gp.ammo[i].collisionOn == true) {
+                                entity.collisionOn = true;
+                           // }
+                            if (player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        if (entity.solidArea.intersects(gp.ammo[i].solidArea)) {
+                           // if (gp.ammo[i].collisionOn == true) {
+                                entity.collisionOn = true;
+                            //}
+                            if (player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        if (entity.solidArea.intersects(gp.ammo[i].solidArea)) {
+
+                           // if (gp.ammo[i].collisionOn == true) {
+                                entity.collisionOn = true;
+                           // }
+                            if (player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x += entity.speed;
+                        if (entity.solidArea.intersects(gp.ammo[i].solidArea)) {
+                          //  if (gp.ammo[i].collisionOn == true) {
+                               entity.collisionOn = true;
+                           // }
+                            if (player == true) {
+                                index = i;
+                            }
+                            break;
+
+                        }
+
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                gp.ammo[i].solidArea.x = gp.ammo[i].solidAreaDefaultX;
+                gp.ammo[i].solidArea.y = gp.ammo[i].solidAreaDefaultY;
 
             }
 

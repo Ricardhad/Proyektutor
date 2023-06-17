@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
  */
 public class OBJ_Ammo extends SuperObject{
     public OBJ_Ammo(){
-        name="Portal";
+        name="Ammo";
         try{
             kiri =  ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_ammo.png"));
             kanan =  ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_ghost_right.png"));

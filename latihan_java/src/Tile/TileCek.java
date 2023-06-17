@@ -4,14 +4,10 @@
  */
 package Tile;
 
-import java.awt.image.BufferedImage;
-
 /**
  *
  * @author Reynaldy
  */
-public class Tile {
-    public BufferedImage image;
-    public boolean collision;
-    public boolean trap;
+public class  TileCek <T>{
+    public T collision;
 }

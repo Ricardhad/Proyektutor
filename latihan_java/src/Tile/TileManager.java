@@ -47,6 +47,7 @@ public class Tilemanager {
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_spike.png"));// isi anchor sprite dalam array
             tile[2].collision = true;
+            tile[2].trap = true;
             
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/black.png"));// isi anchor sprite dalam array

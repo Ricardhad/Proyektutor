@@ -19,21 +19,22 @@ public class AssetSetter {
     }
     public void setObject(){
         
-        gp.obj[0] = new OBJ_Fruit();
-        gp.obj[0].worldX = gp.tileSize * 3;
-        gp.obj[0].worldY = gp.tileSize * 19;
         
-        gp.obj[1] = new OBJ_Fruit();
-        gp.obj[1].worldX = gp.tileSize * 7;
-        gp.obj[1].worldY = gp.tileSize * 8;
+        gp.obj.add( new OBJ_Fruit());
+        gp.obj.get(0).worldX = gp.tileSize * 3;
+        gp.obj.get(0).worldY = gp.tileSize * 19;
         
-        gp.obj[2] = new OBJ_Fruit();
-        gp.obj[2].worldX = gp.tileSize * 16;
-        gp.obj[2].worldY = gp.tileSize * 14;
+        gp.obj.add(new OBJ_Fruit());
+        gp.obj.get(1).worldX = gp.tileSize * 7;
+        gp.obj.get(1).worldY = gp.tileSize * 8;
         
-        gp.obj[3] = new OBJ_Portal();
-        gp.obj[3].worldX = gp.tileSize * 20;
-        gp.obj[3].worldY = gp.tileSize * 2;
+        gp.obj.add( new OBJ_Fruit());
+        gp.obj.get(2).worldX = gp.tileSize * 16;
+        gp.obj.get(2).worldY = gp.tileSize * 14;
+        
+        gp.obj.add( new OBJ_Portal());
+        gp.obj.get(3).worldX = gp.tileSize * 20;
+        gp.obj.get(3).worldY = gp.tileSize * 2;
         
 //        gp.obj[4] = new OBJ_Ammo();
 //        gp.obj[4].worldX = gp.tileSize * 11;

@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -63,7 +64,8 @@ public class GamePanel extends JPanel implements Runnable {
     //entity dan player
     //inheritance
     public Player user = new Player(this, keyh);
-    public SuperObject obj[] = new SuperObject[10];
+    //public SuperObject obj[] = new SuperObject[10];
+    public ArrayList <SuperObject> obj = new ArrayList<>();
     // array enemy
     //polymorph
     public Entity enemy[] = new Enemy[10];
@@ -124,7 +126,7 @@ public class GamePanel extends JPanel implements Runnable {
         int y = 29;// player sakarang
         int ctr = 0;
         while (gameThread != null) {
-            ctr ++; // ctr lava
+           // ctr ++; // ctr lava
           
             // update user
             update();
@@ -152,6 +154,16 @@ public class GamePanel extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            
+            
+            if(user.finish == true){
+                 ctr ++; 
+            }
+            
+            if(ctr == 100){
+                gameThread = null;
+                stopMusic();       
+            }
         }
     }
 
@@ -178,9 +190,9 @@ public class GamePanel extends JPanel implements Runnable {
         ammo[0].draw(g2);
 
 
-        for (int i = 0; i < obj.length; i++) {
-            if(obj[i]!=null){
-               obj[i].draw(g2, this);
+        for (int i = 0; i < obj.size(); i++) {
+            if(obj.get(i)!=null){
+               obj.get(i).draw(g2, this);
             }
         }
         

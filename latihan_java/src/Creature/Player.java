@@ -9,6 +9,7 @@ import Game.KeyHandler;
 import Game.utilitytool;
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -26,12 +27,16 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     public int hasKey=0;
+    
+    public boolean isPortal = false;
+    public String txt_win = "You Lose MTHFucker";
+    public boolean finish = false;
 
     public Player(GamePanel gp, KeyHandler keyh) {
         super(gp);
 
         this.keyh = keyh;
-
+        this.name = "player";
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
@@ -136,6 +141,9 @@ public class Player extends Entity {
         int objIndex = gp.cChecker.checkObject(this, true);
         pickUpObject(objIndex);
         
+        int objene = gp.cChecker.checkenemyectEne(this, true);
+        pickUpObject2(objene);
+        
         if (collisionOn == false) {
 
             switch (direction) {
@@ -174,23 +182,33 @@ public class Player extends Entity {
     }
     public void pickUpObject(int i){
         if(i!=999){
-            String objectName = gp.obj[i].name;
+            String objectName = gp.obj.get(i).name;
             switch(objectName){
                 case "Fruit":
                     gp.playSE(1);
                     hasKey++;
-                    gp.obj[i]=null;
+                    gp.obj.set(i, null);
                     System.out.println("Key: "+hasKey);
                     break;
                 case "Portal":
                     gp.playSE(3);
+                    this.isPortal = true;
                     if(hasKey>=3){
-                        gp.obj[i]=null;
+                        gp.obj.set(i,null);
                         hasKey-=3;
+                        this.txt_win = "You Win Bitch!";
                     }
                     System.out.println("Key: "+hasKey);
                     break;
+                
             }
+        }
+    }
+    
+     public void pickUpObject2(int i){
+        if(i!=999){
+             this.worldX = gp.tileSize * 5;//lokasi players
+            this.worldY = gp.tileSize * 27;
         }
     }
 
@@ -273,7 +291,20 @@ public class Player extends Entity {
                     break;
             }
         }
+        
+        if(this.isPortal == true){
+            // gambar textnya di  sini
+             Font arial_40 = new Font("Arial",Font.PLAIN,40);
+              g2.setFont(arial_40);
+              g2.setColor(Color.yellow);
+              g2.drawString(this.txt_win,25,105);
+              finish = true;
+              // buat stop di sini saja 
+              
+        }
 
+        
+        
         g2.drawImage(image, screenX, screenY, null);
     }
 }
