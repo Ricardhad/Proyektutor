@@ -20,6 +20,7 @@ public class Ammo extends Entity {
         direction = "left";
         speed = 2;
         spriteNum = 1;
+        name="Ammo";
         
         getPlayerImage();
     }

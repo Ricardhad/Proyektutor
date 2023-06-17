@@ -16,19 +16,22 @@ import javax.imageio.ImageIO;
  *
  * @author Reynaldy
  */
-public class TileManager {
-
+public class Tilemanager {
     GamePanel gp;
     public Tile[] tile;
-    public int mapTileNum[][];
+    public int mapTileNum[][][];
 
-    public TileManager(GamePanel gp) {
+    public Tilemanager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[10];//banyak sprite
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int [gp.maxMap] [gp.maxWorldCol][gp.maxWorldRow];
+        
         getTileImage();
 
-        loadmap();
+        loadmap("/Maps/peta2.txt",0);
+        loadmap("/Maps/peta1.txt",1);
+                loadmap("/Maps/peta3.txt",2);
+
     }
 
     public void getTileImage() {
@@ -59,7 +62,7 @@ public class TileManager {
             tile[6].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/red.png"));// isi anchor sprite dalam array
             tile[6].collision = true;
             
-             tile[7] = new Tile();
+            tile[7] = new Tile();
             tile[7].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/oren.png"));// isi anchor sprite dalam array
            
 
@@ -68,9 +71,9 @@ public class TileManager {
         }
     }
 
-    public void loadmap() {
+    public void loadmap(String filepath,int map) {
         try {
-            InputStream is = getClass().getResourceAsStream("/Maps/peta2.txt");
+            InputStream is = getClass().getResourceAsStream(filepath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
@@ -85,7 +88,7 @@ public class TileManager {
 
                     int num = Integer.parseInt(numbers[col]);
 
-                    mapTileNum[col][row] = num;
+                    mapTileNum[map][col][row] = num;
                     col++;
 
                 }
@@ -101,13 +104,13 @@ public class TileManager {
         }
     }
     
-    public void changeMapTileNum(int row, int mode){
-        for(int i=0; i< gp.maxWorldCol; i++ ){
-            if(mapTileNum[i][row]== 0 || mapTileNum[i][row]== 6){ 
-                mapTileNum[i][row] = mode;                
-            }
-        }
-    }
+//    public void changeMapTileNum(int row, int mode){
+//        for(int i=0; i< gp.maxWorldCol; i++ ){
+//            if(mapTileNum[i][Map][row]== 0 || mapTileNum[i][row]== 6){ 
+//                mapTileNum[i][row] = mode;                
+//            }
+//        }
+//    }
 
     public void draw(Graphics2D g2) {
         getTileImage();
@@ -117,7 +120,7 @@ public class TileManager {
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 
-            int tileNum = mapTileNum[worldCol][worldRow];
+            int tileNum = mapTileNum[gp.currentmap][worldCol][worldRow];
             
             
             int worldX = worldCol * gp.tileSize;

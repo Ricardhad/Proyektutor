@@ -10,7 +10,8 @@ import java.awt.event.KeyListener;
  * @author Reynaldy
  */
 public class KeyHandler implements KeyListener{
-    public boolean up,down,left,right;
+    public boolean up,down,left,right,map1,map2,map3;
+    boolean checkDrawTime = false;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -32,11 +33,29 @@ public class KeyHandler implements KeyListener{
         if(code==KeyEvent.VK_D){
             right=true;
         }
+        if (code==KeyEvent.VK_1) {
+            map1=true;
+        }
+        if (code==KeyEvent.VK_2) {
+            map2=true;
+        }
+        if (code==KeyEvent.VK_3) {
+            map3=true;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int code =e.getKeyCode();
+         if (code==KeyEvent.VK_1) {
+            map1=false;
+        }
+         if (code==KeyEvent.VK_2) {
+            map2=false;
+        }
+         if (code==KeyEvent.VK_3) {
+            map3=true;
+        }
 //        if(code==KeyEvent.VK_W){
 //           up=false;
 //        }

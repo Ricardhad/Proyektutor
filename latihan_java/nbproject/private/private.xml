@@ -5,10 +5,26 @@
         <group>
             <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Game/CollisionChecker.java</file>
             <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Creature/Player.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Objects/OBJ_Fruit.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Tile/Tilemanager.java</file>
             <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Creature/Enemy.java</file>
-            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Creature/Fruit.java</file>
-            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Creature/Chaser.java</file>
-            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Tile/TileManager.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Game/Main.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Game/KeyHandler.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Creature/Ammo.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Tiles/water.png</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Game/utilitytool.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Game/AssetSetter.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Objects/OBJ_Enemy.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Objects/OBJ_Ammo.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Objects/SuperObject.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Tile/Tile.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Objects/OBJ_Portal.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Tile/Level3.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Game/NewInterface.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Game/UI.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Game/Sound.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Tile/Level1.java</file>
+            <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Maps/peta3.txt</file>
             <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Game/GamePanel.java</file>
             <file>file:/C:/Users/Reynaldy/Downloads/JavaNetbeans/latihan_java/src/Creature/Entity.java</file>
         </group>
