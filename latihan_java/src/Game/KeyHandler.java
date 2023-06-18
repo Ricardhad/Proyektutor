@@ -10,11 +10,7 @@ import java.awt.event.KeyListener;
  * @author Reynaldy
  */
 public class KeyHandler implements KeyListener{
-//    GamePanel gp;
     public boolean up,down,left,right;
-//    public KeyHandler(GamePanel gp){
-//        this.gp=gp;
-//    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -36,6 +32,8 @@ public class KeyHandler implements KeyListener{
         if(code==KeyEvent.VK_D){
             right=true;
         }
+<<<<<<< HEAD
+<<<<<<< HEAD
 //        if (code==KeyEvent.VK_P) {
 //            if (gp.gameState==gp.playState) {
 //                gp.gameState=gp.pausedState;
@@ -43,6 +41,10 @@ public class KeyHandler implements KeyListener{
 //                gp.gameState=gp.playState;
 //            }
 //        }
+=======
+>>>>>>> parent of 17e8b3d (Hasil final)
+=======
+>>>>>>> parent of 17e8b3d (Hasil final)
     }
 
     @Override

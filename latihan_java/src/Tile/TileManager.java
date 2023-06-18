@@ -40,11 +40,45 @@ public class TileManager {
             setup(3, "tomb_portal0", true);
             setup(4, "tomb_cannon_left", true);
             
+<<<<<<< HEAD
         } catch (Exception e) {
+=======
+            
+            tile[1] = new Tile();
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_wall.png"));// isi anchor sprite dalam array
+            tile[1].collision = true;
+            
+            tile[2] = new Tile();
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_spike.png"));// isi anchor sprite dalam array
+            tile[2].collision = true;
+            
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/black.png"));// isi anchor sprite dalam array
+            
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_cannon_left.png"));// isi anchor sprite dalam array
+            //tile[4].collision = true;
+            
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/sand.png"));// isi anchor sprite dalam array
+            
+            tile[6] = new Tile();
+            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/red.png"));// isi anchor sprite dalam array
+            tile[6].collision = true;
+            
+             tile[7] = new Tile();
+            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/oren.png"));// isi anchor sprite dalam array
+           
+
+        } catch (IOException e) {
+>>>>>>> parent of 17e8b3d (Hasil final)
             e.printStackTrace();
         }
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     public void setup(int index, String imagePath, boolean collision) {
         utilitytool uTool = new utilitytool();
         try {
@@ -60,6 +94,18 @@ public class TileManager {
 
     public void loadmap() {
         try {
+=======
+    public void loadmap() {
+        try {
+>>>>>>> parent of 17e8b3d (Hasil final)
+=======
+    public void loadmap() {
+        try {
+>>>>>>> parent of 17e8b3d (Hasil final)
+=======
+    public void loadmap() {
+        try {
+>>>>>>> parent of 17e8b3d (Hasil final)
             InputStream is = getClass().getResourceAsStream("/Maps/peta2.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
@@ -90,6 +136,23 @@ public class TileManager {
 
         }
     }
+<<<<<<< HEAD
+=======
+    
+    public void changeMapTileNum(int row, int mode){
+        for(int i=0; i< gp.maxWorldCol; i++ ){
+            if(mapTileNum[i][row]== 0 || mapTileNum[i][row]== 6){ 
+                mapTileNum[i][row] = mode;                
+            }
+        }
+    }
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 17e8b3d (Hasil final)
+=======
+>>>>>>> parent of 17e8b3d (Hasil final)
+=======
+>>>>>>> parent of 17e8b3d (Hasil final)
 
     public void draw(Graphics2D g2) {
         getTileImage();
@@ -99,7 +162,18 @@ public class TileManager {
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 
             int tileNum = mapTileNum[worldCol][worldRow];
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> parent of 17e8b3d (Hasil final)
+=======
+>>>>>>> parent of 17e8b3d (Hasil final)
+            
+            
+>>>>>>> parent of 17e8b3d (Hasil final)
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
             int screenX = worldX - gp.user.worldX + gp.user.screenX;
