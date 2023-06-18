@@ -33,6 +33,7 @@ public class Main {
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
         
+        gamepanel.setupGame();
         gamepanel.startGamethread();
     }
     
