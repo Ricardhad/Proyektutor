@@ -6,10 +6,8 @@ package Creature;
 
 import Game.GamePanel;// Game itu berasal dari pakage Game nya
 import Game.KeyHandler;
-import Game.utilitytool;
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -26,23 +24,19 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-    public int hasKey=0;
     
-    public boolean isPortal = false;
-    public String txt_win = "You Lose MTHFucker";
-    public boolean finish = false;
+    public  boolean press = true;
 
     public Player(GamePanel gp, KeyHandler keyh) {
         super(gp);
 
         this.keyh = keyh;
-        this.name = "player";
+
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
-        solidArea = new Rectangle(8, 16, 32, 38);//8,16,32,32
-        solidAreaDefaultX=solidArea.x;
-        solidAreaDefaultX=solidArea.y;
+        solidArea = new Rectangle(0, 0, 40, 42);//8,16,32,32
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -50,61 +44,34 @@ public class Player extends Entity {
     public void setDefaultValues() {
         worldX = gp.tileSize * 5;//lokasi players
         worldY = gp.tileSize * 27;
-        speed = 10;//5
-        direction = "idledown";
+        speed = 5;//5
+        direction = "down";
     }
 
     public void getPlayerImage() {
         try {
-            up1 = setup("tomb_char_move_up0");
-            up2 = setup("tomb_char_move_up1");
-            down1 = setup("tomb_char_move_down0");
-            down2 = setup("tomb_char_move_down1");
-            left1 = setup("tomb_char_move_left0");
-            left2 = setup("tomb_char_move_left1");
-            right1 = setup("tomb_char_move_right0");
-            right2 = setup("tomb_char_move_right1");
-            idleup1 = setup("tomb_char_up0");
-            idleup2 = setup("tomb_char_up1");
-            idleleft1 = setup("tomb_char_left0");
-            idleleft2 = setup("tomb_char_left1");
-            idleright1 = setup("tomb_char_right0");
-            idleright2 = setup("tomb_char_right1");
-            idledown1 = setup("tomb_char_down0");
-            idledown2 = setup("tomb_char_down1");
+            up1 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_up0.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_up1.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_down0.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_down1.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_left0.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_left1.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_right0.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_right1.png"));
+            idle1 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_right1.png"));
+            idle2 = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_char_move_right1.png"));
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public BufferedImage setup(String imagename) {
-        utilitytool uTool = new utilitytool();
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/" + imagename + ".png"));
-            image = uTool.scaledimage(image, gp.tileSize, gp.tileSize);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
+    public void update() {
 
         boolean isMoving = false;
-    public void update() {
-        if (keyh.map1==true) {
-            gp.currentmap=0;
-        }
-        if (keyh.map2==true) {
-            gp.currentmap=1;
-        }
-        if (keyh.map3==true) {
-            gp.currentmap=2;
-        }
-        if (keyh.up == true || keyh.down == true || keyh.left == true || keyh.right == true) {//ini guna nya supaya sprite nya tidak ganti setiap detik,dan figanti ketika menekan wasd nya
+         System.out.println(press);
+        if (press == true &&keyh.up == true || keyh.down == true || keyh.left == true || keyh.right == true) {//ini guna nya supaya sprite nya tidak ganti setiap detik,dan figanti ketika menekan wasd nya
             if (!isMoving) { // Only change direction if not already moving
-            isMoving = true;
                 if (keyh.up) {
                     direction = "up";
                 } else if (keyh.down) {
@@ -115,38 +82,20 @@ public class Player extends Entity {
                     direction = "right";
                 }
             }
+            isMoving = true;
+            press = false;
         } else {
-            switch (direction) {
-                case "up":
-                    direction="idleup";
-                    break;
-                case "down":
-                    direction="idledown";
-                    break;
-                case "left":
-                    direction="idleleft";
-                    break;
-                case "right":
-                    direction="idleright";
-                    break;
-            }
             isMoving = false;
+            press = true;
         }
 
         // cek collision
         collisionOn = false;
         gp.cChecker.checkTile(this);
-        
-        //cek object
-        int objIndex = gp.cChecker.checkObject(this, true);
-        pickUpObject(objIndex);
-        
-        int objene = gp.cChecker.checkenemyectEne(this, true);
-        pickUpObject2(objene);
-        
-        if (collisionOn == false) {
+    
 
-            switch (direction) {
+        if (collisionOn == false) {
+                switch (direction) {
                 case "up":
                     worldY -= speed;
                     break;
@@ -159,15 +108,16 @@ public class Player extends Entity {
                 case "right":
                     worldX += speed;
                     break;
-            }
+                }
+           
 
         } else {
-                keyh.down = false;
+            keyh.down = false;
             keyh.up = false;
             keyh.left = false;
             keyh.right = false;
             isMoving = false;
-        
+            press = true;
         }
         spriteCounter++;// ganti frame sprite nya
         if (spriteCounter > 10) {// per detik
@@ -180,37 +130,6 @@ public class Player extends Entity {
         }
 
     }
-    public void pickUpObject(int i){
-        if(i!=999){
-            String objectName = gp.obj.get(i).name;
-            switch(objectName){
-                case "Fruit":
-                    gp.playSE(1);
-                    hasKey++;
-                    gp.obj.set(i, null);
-                    System.out.println("Key: "+hasKey);
-                    break;
-                case "Portal":
-                    gp.playSE(3);
-                    this.isPortal = true;
-                    if(hasKey>=3){
-                        gp.obj.set(i,null);
-                        hasKey-=3;
-                        this.txt_win = "You Win Bitch!";
-                    }
-                    System.out.println("Key: "+hasKey);
-                    break;
-                
-            }
-        }
-    }
-    
-     public void pickUpObject2(int i){
-        if(i!=999){
-             this.worldX = gp.tileSize * 5;//lokasi players
-            this.worldY = gp.tileSize * 27;
-        }
-    }
 
     public void draw(Graphics2D g2) {
 
@@ -219,37 +138,39 @@ public class Player extends Entity {
         // ini yang kotak hijau
         BufferedImage image = null;
         if (keyh.up == false && keyh.down == false && keyh.left == false && keyh.right == false) {
-            switch (direction) {
-                case "idleup":
+             switch (direction) {
+                case "up":
                     if (spriteNum == 1) {
-                        image = idleleft1;
+                        image = down1;
+
                     }
                     if (spriteNum == 2) {
-                        image = idleleft2;
+                        image = down2;
                     }
                     break;
-                case "idledown":
+                case "down":
                     if (spriteNum == 1) {
-                        image = idleright1;
+                        image = up1;
                     }
                     if (spriteNum == 2) {
-                        image = idleright2;
+                        image = up2;
                     }
                     break;
-                case "idleleft":
+                case "left":
                     if (spriteNum == 1) {
-                        image = idledown1;
+                        image = right1;
+
                     }
                     if (spriteNum == 2) {
-                        image = idledown2;
+                        image = right2;
                     }
                     break;
-                case "idleright":
+                case "right":
                     if (spriteNum == 1) {
-                        image = idleup1;
+                        image = left1;
                     }
                     if (spriteNum == 2) {
-                        image = idleup2;
+                        image = left2;
                     }
                     break;
             }
@@ -292,19 +213,6 @@ public class Player extends Entity {
             }
         }
         
-        if(this.isPortal == true){
-            // gambar textnya di  sini
-             Font arial_40 = new Font("Arial",Font.PLAIN,40);
-              g2.setFont(arial_40);
-              g2.setColor(Color.yellow);
-              g2.drawString(this.txt_win,25,105);
-              finish = true;
-              // buat stop di sini saja 
-              
-        }
-
-        
-        
-        g2.drawImage(image, screenX, screenY, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }

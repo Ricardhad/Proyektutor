@@ -5,7 +5,6 @@
 package Creature;
 
 import Game.GamePanel;
-import Game.utilitytool;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -27,9 +26,10 @@ public class Enemy extends Entity{
     
         public void getPlayerImage() {
             try {
-              left1 =  setup("tomb_ghost_left");
-              right1 =   setup("tomb_ghost_right");
-            } catch (Exception e) {
+              left1 =  ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_ghost_left.png"));
+              right1 =  ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_ghost_right.png"));
+
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -56,17 +56,7 @@ public class Enemy extends Entity{
                         
             }
         }
-           public BufferedImage setup(String imagename) {
-        utilitytool uTool = new utilitytool();
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/" + imagename + ".png"));
-            image = uTool.scaledimage(image, gp.tileSize, gp.tileSize);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
+    
         public void draw(Graphics2D g2){
            BufferedImage image = null;
             int screenX = worldX - gp.user.worldX + gp.user.screenX;
@@ -78,7 +68,22 @@ public class Enemy extends Entity{
                worldY - gp.tileSize<gp.user.worldY + gp.user.screenY ){
                 
                  switch (direction) {
-                 
+                    case "up":
+                        if (spriteNum == 1) {
+                            image = up1;
+                        }
+                        if (spriteNum == 2) {
+                            image = up2;
+                        }
+                        break;
+                    case "down":
+                        if (spriteNum == 1) {
+                            image = down1;
+                        }
+                        if (spriteNum == 2) {
+                            image = down2;
+                        }
+                        break;
                     case "left":
                         if (spriteNum == 1) {
                             image = left1;
