@@ -10,8 +10,12 @@ import java.awt.event.KeyListener;
  * @author Reynaldy
  */
 public class KeyHandler implements KeyListener{
-    public boolean up,down,left,right;
+    GamePanel gp;
+    public boolean up,down,left,right,map1,map2,map3;
+    boolean checkDrawTime = false;
 
+    
+    
     @Override
     public void keyTyped(KeyEvent e) {
   
@@ -32,24 +36,36 @@ public class KeyHandler implements KeyListener{
         if(code==KeyEvent.VK_D){
             right=true;
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
-//        if (code==KeyEvent.VK_P) {
-//            if (gp.gameState==gp.playState) {
-//                gp.gameState=gp.pausedState;
-//            }else if (gp.gameState==gp.pausedState) {
-//                gp.gameState=gp.playState;
-//            }
-//        }
-=======
->>>>>>> parent of 17e8b3d (Hasil final)
-=======
->>>>>>> parent of 17e8b3d (Hasil final)
+        if (code==KeyEvent.VK_1) {
+            map1=true;
+        }
+        if (code==KeyEvent.VK_2) {
+            map2=true;
+        }
+        if (code==KeyEvent.VK_3) {
+            map3=true;
+        }
+        if (code==KeyEvent.VK_P) {
+            if(gp.gameState==gp.playState){
+                gp.gameState=gp.pauseState;
+            }else if(gp.gameState==gp.pauseState){
+                gp.gameState = gp.playState;
+            }
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int code =e.getKeyCode();
+         if (code==KeyEvent.VK_1) {
+            map1=false;
+        }
+         if (code==KeyEvent.VK_2) {
+            map2=false;
+        }
+         if (code==KeyEvent.VK_3) {
+            map3=true;
+        }
 //        if(code==KeyEvent.VK_W){
 //           up=false;
 //        }

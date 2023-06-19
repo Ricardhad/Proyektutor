@@ -4,10 +4,6 @@
  */
 package Game;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.sound.sampled.*;
 
 
 /**
@@ -33,6 +29,7 @@ public class Main {
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
         
+        gamepanel.setupGame();
         gamepanel.startGamethread();
     }
     
