@@ -37,7 +37,7 @@ public class Tilemanager {
     public void getTileImage() {
         try {
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/black.png"));// isi anchor sprite dalam array
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/black.png"));// isi anchor sprite dalam array
             
             
             tile[1] = new Tile();
@@ -50,21 +50,12 @@ public class Tilemanager {
             tile[2].trap = true;
             
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/black.png"));// isi anchor sprite dalam array
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_spike.png"));// isi anchor sprite dalam array
             
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tomb_sprite/tomb_cannon_left.png"));// isi anchor sprite dalam array
             //tile[4].collision = true;
             
-            tile[5] = new Tile();
-            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/sand.png"));// isi anchor sprite dalam array
-            
-            tile[6] = new Tile();
-            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/red.png"));// isi anchor sprite dalam array
-            tile[6].collision = true;
-            
-            tile[7] = new Tile();
-            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/oren.png"));// isi anchor sprite dalam array
            
 
         } catch (IOException e) {

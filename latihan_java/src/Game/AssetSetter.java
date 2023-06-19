@@ -18,6 +18,8 @@ public class AssetSetter {
     }
     public void setObject(){
         
+        if (gp.currentmap==0) {
+            
         
         gp.obj.add( new OBJ_Fruit());
         gp.obj.get(0).worldX = gp.tileSize * 3;
@@ -34,7 +36,9 @@ public class AssetSetter {
         gp.obj.add( new OBJ_Portal());
         gp.obj.get(3).worldX = gp.tileSize * 20;
         gp.obj.get(3).worldY = gp.tileSize * 2;
-        
+        }else if (gp.currentmap==1) {
+            
+        }
 //        gp.obj[4] = new OBJ_Ammo();
 //        gp.obj[4].worldX = gp.tileSize * 11;
 //        gp.obj[4].worldY = gp.tileSize * 16;

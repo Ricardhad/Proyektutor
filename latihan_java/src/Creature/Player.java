@@ -95,12 +95,15 @@ public class Player extends Entity {
     public void update() {
         if (keyh.map1==true) {
             gp.currentmap=0;
+            nextLVL(gp.currentmap);
         }
         if (keyh.map2==true) {
             gp.currentmap=1;
+            nextLVL(gp.currentmap);
         }
         if (keyh.map3==true) {
             gp.currentmap=2;
+            nextLVL(gp.currentmap);
         }
         if (keyh.up == true || keyh.down == true || keyh.left == true || keyh.right == true) {//ini guna nya supaya sprite nya tidak ganti setiap detik,dan figanti ketika menekan wasd nya
             if (!isMoving) { // Only change direction if not already moving
@@ -142,7 +145,7 @@ public class Player extends Entity {
         pickUpObject(objIndex);
         
         int objene = gp.cChecker.checkenemyectEne(this, true);
-        pickUpObject2(objene);
+        Restart(objene);
         
         if (collisionOn == false) {
 
@@ -204,20 +207,35 @@ public class Player extends Entity {
             }
         }
     }
-    
-     public void pickUpObject2(int i){
-        if(i!=999){
-            // kembaliin player ke tempat semula jika kena enemy
+    public void nextLVL(int n){
+            if (n==0) {
              this.worldX = gp.tileSize * 5;//lokasi players
             this.worldY = gp.tileSize * 27;
+            }else if (n==1) {
+                 this.worldX = gp.tileSize * 12;//lokasi players
+            this.worldY = gp.tileSize * 27;
+            }else if (n==2) {
+                 this.worldX = gp.tileSize * 18;//lokasi players
+            this.worldY = gp.tileSize * 27;
+            }
+    
+    }
+     public void Restart(int i){
+        if(i!=999){
+            // kembaliin player ke tempat semula jika kena enemy
+            if (gp.currentmap==0) {
+                
+             this.worldX = gp.tileSize * 5;//lokasi players
+            this.worldY = gp.tileSize * 27;
+            }else if (gp.currentmap==1) {
+                
+            }else if (gp.currentmap==2) {
+                
+            }
         }
     }
 
     public void draw(Graphics2D g2) {
-
-        //g2.setColor(Color.pink);
-        //g2.fillRect(screenX, screenY, gp.tileSize, gp.tileSize); 
-        // ini yang kotak hijau
         BufferedImage image = null;
         if (keyh.up == false && keyh.down == false && keyh.left == false && keyh.right == false) {
             switch (direction) {

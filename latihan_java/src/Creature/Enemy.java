@@ -20,7 +20,6 @@ public class Enemy extends Entity{
         super(gp);
         direction = "left";
         speed = 2;
-        spriteNum = 1;
         
         getPlayerImage();
     }
@@ -56,7 +55,7 @@ public class Enemy extends Entity{
                         
             }
         }
-           public BufferedImage setup(String imagename) {
+         public BufferedImage setup(String imagename) {
         utilitytool uTool = new utilitytool();
         BufferedImage image = null;
         try {
@@ -84,21 +83,17 @@ public class Enemy extends Entity{
                             image = left1;
 
                         }
-                        if (spriteNum == 2) {
-                            image = left2;
-                        }
+                       
                         break;
                     case "right":
                         if (spriteNum == 1) {
                             image = right1;
                         }
-                        if (spriteNum == 2) {
-                            image = right2;
-                        }
+                       
                         break;
                 }
                 
-                g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(image, screenX, screenY,  null);
             }
     }
 }

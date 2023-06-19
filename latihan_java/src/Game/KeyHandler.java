@@ -66,18 +66,7 @@ public class KeyHandler implements KeyListener{
          if (code==KeyEvent.VK_3) {
             map3=true;
         }
-//        if(code==KeyEvent.VK_W){
-//           up=false;
-//        }
-//        if(code==KeyEvent.VK_S){
-//            down=false;
-//        }
-//        if(code==KeyEvent.VK_A){
-//           left=false;
-//        }
-//        if(code==KeyEvent.VK_D){
-//            right=false;
-//        }
+
     }
     
     
